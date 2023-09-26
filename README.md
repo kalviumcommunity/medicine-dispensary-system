@@ -1,0 +1,1 @@
+This is a medicine dispensary system which streamlines the process of medicines dispencing. This is going to be built in PostGresSql 
