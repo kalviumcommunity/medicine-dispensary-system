@@ -42,8 +42,9 @@ inventory1 = Inventories("med123", 100)
 # Access and modify instance attributes
 print(user1.UserId)  # Access the UserId attribute of the User instance
 print(prescription1.TotalCost)  # Access the TotalCost attribute of the Prescriptions instance
-
+print(user1.UserName)
 user1.UserName = "new_username"  # Modify the UserName attribute of the User instance
 # Demonstrate relationships between objects
+print(user1.UserName) 
 prescription_detail1 = PrescriptionDetails("presc123", "Take one tablet", "med123", 2, 1)
 print(prescription_detail1.Dosage)  # Access the Quantity attribute of the PrescriptionDetails instance
