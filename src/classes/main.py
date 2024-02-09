@@ -9,11 +9,16 @@ class Entity(ABC):
         pass
 
 class User(Entity):
+    users = []  # Static variable to store all user instances
+    users_count = 0
+
     def __init__(self, UserId, Role, UserName, Password):
         super().__init__(UserId)
         self.Role = Role
         self.UserName = UserName
         self._Password = Password
+        User.users_count = User.users_count + 1
+        User.users.append(self)  # Add each user instance to the static list
 
     def getUserName(self):
         print('The Name of the user is',self.UserName)
@@ -21,8 +26,14 @@ class User(Entity):
     def display_info(self):
         print(f"User ID: {self.entity_id}, Role: {self.Role}, UserName: {self.UserName}")
 
-    def getUserPassword(self):
-        print('Password is', self._Password)
+    @staticmethod
+    def display_all_users():
+        for user in User.users:
+            user.display_info()
+    @staticmethod
+    def displayUsersCount():
+        print(User.users_count)
+
 
 class Prescriptions(Entity):
     def __init__(self, PrescriptionId, PrescriptionDate, TotalCost, UserId):
@@ -67,17 +78,8 @@ class Inventories(Entity):
 
 # Example usage:
 user1 = User("user123", "Admin", "admin_user", "admin_pass")
-prescription1 = Prescriptions("presc12", "2023-02-26", 150.0, "user123")
-medicine1 = Medicines("med123", "Aspirin", "Appollo Pharma", 5.99, "2023-12-31")
-inventory1 = Inventories("med123", 100)
+user1 = User("user123", "Admin", "admin_user", "admin_pass")
+user2 = User("user124", "Regular", "regular_user", "reg_pass")
 
-# Display information using the abstract method
-user1.display_info()
-prescription1.display_info()
-medicine1.display_info()
-inventory1.display_info()
-
-#  Display information using getter methods for encapsulation concept
-# user1.getUserPassword()
-user1.getUserName()
-
+# Display all users using the static member
+User.display_all_users()
