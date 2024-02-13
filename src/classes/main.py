@@ -78,8 +78,10 @@ class Inventories(Entity):
 
 # Example usage:
 user1 = User("user123", "Admin", "admin_user", "admin_pass")
-user1 = User("user123", "Admin", "admin_user", "admin_pass")
+user3 = User("user123", "Admin", "admin_user", "admin_pass")
 user2 = User("user124", "Regular", "regular_user", "reg_pass")
-
+user5 = User("user124", "Regular", "regular_user", "reg_pass")
 # Display all users using the static member
-User.display_all_users()
+# User.display_all_users()
+print(User.users_count)
+print(user1.users_count)
