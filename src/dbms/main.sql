@@ -44,17 +44,17 @@ CREATE TABLE Inventories (
     PRIMARY KEY (MedicineId)
 );
 
--- DML - insert
-INSERT INTO Medicines (MedicineId, MedicineName, Manufacturer, Price, ExpiryDate) VALUES 
-(1, 'Aspirin', 'Bayer', 9.99, '2023-05-15'),
-(2, 'Paracetamol', 'Johnson & Johnson', 5.49, '2023-08-20'),
-(3, 'Ibuprofen', 'Pfizer', 12.75, '2023-06-30'),
-(4, 'Amoxicillin', 'GlaxoSmithKline', 15.25, '2022-12-10'),
-(5, 'Ciprofloxacin', 'Novartis', 18.99, '2024-02-28');
+-- -- DML - insert
+-- INSERT INTO Medicines (MedicineId, MedicineName, Manufacturer, Price, ExpiryDate) VALUES 
+-- (1, 'Aspirin', 'Bayer', 9.99, '2023-05-15'),
+-- (2, 'Paracetamol', 'Johnson & Johnson', 5.49, '2023-08-20'),
+-- (3, 'Ibuprofen', 'Pfizer', 12.75, '2023-06-30'),
+-- (4, 'Amoxicillin', 'GlaxoSmithKline', 15.25, '2022-12-10'),
+-- (5, 'Ciprofloxacin', 'Novartis', 18.99, '2024-02-28');
  
--- Delete 
-delete from Medicines where MedicineName = 'Aspirin';
--- update
-update Medicines set MedicineName = 'Paracetamol-omega' where MedicineName = 'Paracetamol';
--- select
-select * from Medicines
+-- -- Delete 
+-- delete from Medicines where MedicineName = 'Aspirin';
+-- -- update
+-- update Medicines set MedicineName = 'Paracetamol-omega' where MedicineName = 'Paracetamol';
+-- -- select
+-- select * from Medicines
