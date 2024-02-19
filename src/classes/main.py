@@ -8,31 +8,44 @@ class Entity(ABC):
     def display_info(self):
         pass
 
-class User(Entity):
-    users = []  # Static variable to store all user instances
-    users_count = 0
-
+class User(Entity):  # Define the User class inheriting from Entity
     def __init__(self, UserId, Role, UserName, Password):
         super().__init__(UserId)
         self.Role = Role
         self.UserName = UserName
         self._Password = Password
-        User.users_count = User.users_count + 1
-        User.users.append(self)  # Add each user instance to the static list
-
-    def getUserName(self):
-        print('The Name of the user is',self.UserName)
 
     def display_info(self):
         print(f"User ID: {self.entity_id}, Role: {self.Role}, UserName: {self.UserName}")
 
-    @staticmethod
-    def display_all_users():
-        for user in User.users:
-            user.display_info()
-    @staticmethod
-    def displayUsersCount():
-        print(User.users_count)
+
+class UserBuilder:
+    def __init__(self):
+        self.UserId = None
+        self.Role = None
+        self.UserName = None
+        self.Password = None
+
+    def set_user_id(self, UserId):
+        self.UserId = UserId
+        return self
+
+    def set_role(self, Role):
+        self.Role = Role
+        return self
+
+    def set_user_name(self, UserName):
+        self.UserName = UserName
+        return self
+
+    def set_password(self, Password):
+        self.Password = Password
+        return self
+
+    def build(self):
+        return User(self.UserId, self.Role, self.UserName, self.Password)
+
+
 
 
 class Prescriptions(Entity):
@@ -77,10 +90,7 @@ class Inventories(Entity):
         print(f"Inventory for Medicine ID {self.entity_id}: Quantity in Stock: {self.QuantityInStock}")
 
 # Example usage:
-user1 = User("user123", "Admin", "admin_user", "admin_pass")
-user3 = User("user123", "Admin", "admin_user", "admin_pass")
-user2 = User("user124", "Regular", "regular_user", "reg_pass")
-user5 = User("user124", "Regular", "regular_user", "reg_pass")
-# Display all users using the static member
-# User.display_all_users()
+user_builder = UserBuilder()
+user1 = user_builder.set_user_id("user123").set_role("Admin").set_user_name("admin_user").set_password("admin_pass").build()
 user1.display_info()
+
