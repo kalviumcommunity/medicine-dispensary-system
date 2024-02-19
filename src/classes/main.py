@@ -1,50 +1,86 @@
-class User:
+from abc import ABC, abstractmethod
+
+class Entity(ABC):
+    def __init__(self, entity_id):
+        self.entity_id = entity_id
+
+    @abstractmethod
+    def display_info(self):
+        pass
+
+class User(Entity):
+    users = []  # Static variable to store all user instances
+    users_count = 0
+
     def __init__(self, UserId, Role, UserName, Password):
-        self.UserId = UserId
+        super().__init__(UserId)
         self.Role = Role
         self.UserName = UserName
-        self.Password = Password
+        self._Password = Password
+        User.users_count = User.users_count + 1
+        User.users.append(self)  # Add each user instance to the static list
 
-class Prescriptions:
+    def getUserName(self):
+        print('The Name of the user is',self.UserName)
+
+    def display_info(self):
+        print(f"User ID: {self.entity_id}, Role: {self.Role}, UserName: {self.UserName}")
+
+    @staticmethod
+    def display_all_users():
+        for user in User.users:
+            user.display_info()
+    @staticmethod
+    def displayUsersCount():
+        print(User.users_count)
+
+
+class Prescriptions(Entity):
     def __init__(self, PrescriptionId, PrescriptionDate, TotalCost, UserId):
-        self.PrescriptionId = PrescriptionId
+        super().__init__(PrescriptionId)
         self.PrescriptionDate = PrescriptionDate
         self.TotalCost = TotalCost
         self.UserId = UserId
+    
 
-class PrescriptionDetails:
+    def display_info(self):
+        print(f"Prescription ID: {self.entity_id}, Date: {self.PrescriptionDate}, Total Cost: {self.TotalCost}")
+
+class PrescriptionDetails(Entity):
     def __init__(self, PrescriptionId, PrescriptionDetails, MedicineId, Quantity, Dosage):
-        self.PrescriptionId = PrescriptionId
+        super().__init__(PrescriptionId)
         self.PrescriptionDetails = PrescriptionDetails
         self.MedicineId = MedicineId
         self.Quantity = Quantity
         self.Dosage = Dosage
 
-class Medicines:
+    def display_info(self):
+        print(f"Prescription Detail ID: {self.entity_id}, Details: {self.PrescriptionDetails}, Quantity: {self.Quantity}")
+
+class Medicines(Entity):
     def __init__(self, MedicineId, MedicineName, Manufacturer, Price, ExpiryDate):
-        self.MedicineId = MedicineId
+        super().__init__(MedicineId)
         self.MedicineName = MedicineName
         self.Manufacturer = Manufacturer
         self.Price = Price
         self.ExpiryDate = ExpiryDate
 
-class Inventories:
+    def display_info(self):
+        print(f"Medicine ID: {self.entity_id}, Name: {self.MedicineName}, Price: {self.Price}")
+
+class Inventories(Entity):
     def __init__(self, MedicineId, QuantityInStock):
-        self.MedicineId = MedicineId
+        super().__init__(MedicineId)
         self.QuantityInStock = QuantityInStock
 
-# Create instances of the classes
-user1 = User("user123", "Admin", "admin_user", "admin_pass")
-prescription1 = Prescriptions("presc12", "2023-02-26", 150.0, "user123")
-medicine1 = Medicines("med123", "Aspirin", "Appollo Pharma", 5.99, "2023-12-31")
-inventory1 = Inventories("med123", 100)
+    def display_info(self):
+        print(f"Inventory for Medicine ID {self.entity_id}: Quantity in Stock: {self.QuantityInStock}")
 
-# Access and modify instance attributes
-print(user1.UserId)  # Access the UserId attribute of the User instance
-print(prescription1.TotalCost)  # Access the TotalCost attribute of the Prescriptions instance
-print(user1.UserName)
-user1.UserName = "new_username"  # Modify the UserName attribute of the User instance
-# Demonstrate relationships between objects
-print(user1.UserName) 
-prescription_detail1 = PrescriptionDetails("presc123", "Take one tablet", "med123", 2, 1)
-print(prescription_detail1.Dosage)  # Access the Quantity attribute of the PrescriptionDetails instance
+# Example usage:
+user1 = User("user123", "Admin", "admin_user", "admin_pass")
+user3 = User("user123", "Admin", "admin_user", "admin_pass")
+user2 = User("user124", "Regular", "regular_user", "reg_pass")
+user5 = User("user124", "Regular", "regular_user", "reg_pass")
+# Display all users using the static member
+# User.display_all_users()
+user1.display_info()
