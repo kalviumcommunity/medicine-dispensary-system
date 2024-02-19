@@ -83,5 +83,4 @@ user2 = User("user124", "Regular", "regular_user", "reg_pass")
 user5 = User("user124", "Regular", "regular_user", "reg_pass")
 # Display all users using the static member
 # User.display_all_users()
-print(User.users_count)
-print(user1.users_count)
+user1.display_info()
