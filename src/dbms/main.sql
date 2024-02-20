@@ -44,17 +44,31 @@ CREATE TABLE Inventories (
     PRIMARY KEY (MedicineId)
 );
 
--- DML - insert
-INSERT INTO Medicines (MedicineId, MedicineName, Manufacturer, Price, ExpiryDate) VALUES 
-(1, 'Aspirin', 'Bayer', 9.99, '2023-05-15'),
-(2, 'Paracetamol', 'Johnson & Johnson', 5.49, '2023-08-20'),
-(3, 'Ibuprofen', 'Pfizer', 12.75, '2023-06-30'),
-(4, 'Amoxicillin', 'GlaxoSmithKline', 15.25, '2022-12-10'),
-(5, 'Ciprofloxacin', 'Novartis', 18.99, '2024-02-28');
+update Medicines set MedicineName = 'Paracetamol123' where  MedicineId = 3;
+commit;
+update Medicines set MedicineName = 'new_Medcines' where  MedicineId = 5;
+rollback;
+INSERT INTO Medicines (MedicineId, MedicineName, Manufacturer, Price, ExpiryDate) 
+VALUES 
+    (41, 'Paracetamol', 'ABC Pharmaceuticals', 10.50, '2024-12-31'),
+    (42, 'Amoxicillin', 'XYZ Pharma', 15.75, '2023-09-15'),
+    (43, 'Omeprazole', 'PQR Drugs', 20.25, '2025-05-20'),
+    (44, 'Aspirin', 'LMN Pharmaceuticals', 5.99, '2023-07-10'),
+    (45, 'Ibuprofen', 'ABC Pharmaceuticals', 8.99, '2024-10-05')
+   ;
+commit;
+
+ -- rollback
+ update Medicines set MedicineName = 'iboprufen1234' where MedicineId = 42;
  
--- Delete 
-delete from Medicines where MedicineName = 'Aspirin';
--- update
-update Medicines set MedicineName = 'Paracetamol-omega' where MedicineName = 'Paracetamol';
--- select
-select * from Medicines
+ savepoint
+ update Medicines set MedicineName = 'iboprufen1234' where MedicineId = 41;
+ savepoint X;
+ update Medicines set MedicineName = 'new_medicine' where MedicineId = 41;
+ savepoint Y;
+ update Medicines set MedicineName = 'newMedicine1234' where MedicineId = 41;
+ rollback to X;
+select * from medicines;
+
+
+
